@@ -1,0 +1,63 @@
+<ng-container *ngIf="selectedQuiz$ | async as selectedQuiz">
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar class="header-image" loading="lazy" />
+      <mat-card-title-group>
+        <mat-card-title i18n>{{ selectedQuiz?.milestone || "Milestone not found" }} Quiz</mat-card-title>
+        <mat-card-subtitle i18n>
+          <span>How well versed are you in {{ selectedQuiz?.milestone || "Milestone not found" }}?</span>
+          <span>Take the quiz and find out!</span>
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+
+    <img
+      mat-card-image
+      class="quiz-topic-image"
+      [src]="selectedQuiz?.image"
+      loading="lazy"
+    />
+
+    <mat-card-content>
+      <div class="intro-text" i18n>
+        <p>
+          <strong class="bold-text">{{ selectedQuiz?.summary }}</strong>
+        </p>
+        <p>
+          This quiz is composed of
+          <strong class="bold-text">{{ selectedQuiz?.questions.length }}</strong> timed
+          multiple-choice
+          {{ selectedQuiz?.questions.length === 1 ? 'question' : 'questions' }}.
+        </p>
+        <p>
+          Taking this quiz should solidify your understanding of
+          {{ selectedQuiz?.milestone }}; beat the clock and match wits with your friends!
+        </p>
+        <p>Good luck and have fun with this quiz. Share and enjoy!</p>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <mat-checkbox (change)="onChange($event)" disableRipple="true">
+        <mat-checkbox-label labelPosition="after"
+          >Shuffle Questions and Answers</mat-checkbox-label
+        >
+      </mat-checkbox>
+
+      <button *ngIf="selectedQuiz"
+        type="button"
+        mat-raised-button
+        disableRipple="true"
+        name="start quiz"
+        class="btn btn-outline-primary"
+        (click)="onStartQuiz(selectedQuiz?.quizId)"
+      >
+        <span i18n
+          ><strong>Start the Quiz!</strong>&nbsp;<mat-icon inline="true"
+            >play_arrow</mat-icon
+          ></span
+        >
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

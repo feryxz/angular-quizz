@@ -1,0 +1,49 @@
+@import "../../../variables";
+
+.options {
+  margin: 0 0 17.5px 6.5px;
+  padding: 5px;
+
+  mat-checkbox,
+  mat-radio-button {
+    cursor: pointer;
+    display: inline-block;
+    width: 580px !important;
+    height: auto;
+    font-family: $font-stack;
+    font-size: 20px;
+    color: $dark-brown;
+    background-color: $light-gray;
+    border: 2px solid $medium-gray;
+    padding: 10px 15px 10px 30px;
+    margin-left: -5px !important;
+    padding-left: -25px !important;
+    overflow: unset !important;
+
+    &:hover {
+      border: 2px solid $vivid-blue;
+    }
+
+    &:first-child {
+      margin-top: -25px;
+    }
+  }
+
+  .correct {
+    background-color: $green;
+  }
+
+  .incorrect {
+    background-color: $red;
+  }
+
+  .correct, .incorrect {
+    border: 2px solid $vivid-blue;
+  }
+
+  span {
+    white-space: normal;
+    margin-top: 5px;
+  }
+}
+

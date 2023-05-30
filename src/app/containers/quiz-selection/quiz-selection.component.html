@@ -1,0 +1,56 @@
+<div class="container">
+  <header class="row">
+    <div class="logo">
+      <a href="https://www.codelab.fun" title="Angular Codelab" target="_blank">
+        <div mat-card-avatar class="header-image" loading="lazy"></div>
+      </a>
+    </div>
+    <div class="intro-titles">
+      <h1 i18n>Angular Codelab Quiz App</h1>
+      <h4>How well do you know Angular? Find out!</h4>
+    </div>
+    <div class="info">
+      <a href="https://www.github.com/codelab-fun/codelab/blob/master/README.md#angular-codelab---codelabfun" target="_blank">
+        <i class="material-icons" matTooltip="Angular Codelab info" matTooltipPosition="right">info</i>
+      </a>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <button mat-button [matMenuTriggerFor]="menu" aria-label="Milestones Menu">
+      <span i18n>Milestones &#x25BC;</span>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <div *ngFor="let quiz of quizzes$ | async">
+        <button mat-menu-item name="milestone" [routerLink]="['/intro/', quiz?.quizId]" data-i18n="quiz.milestone">
+          {{ quiz?.milestone || "Milestone not found" }}
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+
+  <div class="quiz-grid">
+    <div class="quiz-tile" #quizTile *ngFor="let quiz of quizzes$ | async"
+      [@slideLeftToRight]="animationState$ | async" (@slideLeftToRight.done)="animationDoneHandler()"
+      (click)="onSelect(quiz.quizId)" [ngStyle]="getQuizTileStyles(quiz)" loading="lazy">
+      <summary class="quiz-info">
+        <h5 class="quiz-title" i18n>{{ quiz?.milestone || "Milestone not found" }}</h5>
+        <h6 class="quiz-summary" i18n>{{ quiz?.summary || "Summary not found" }}</h6>
+      </summary>
+
+      <div class="status-icon">
+        <span [ngClass]="getLinkClass(quiz)" [matTooltip]="getTooltip(quiz)">
+          <a *ngIf="shouldShowLink(quiz)" [routerLink]="getLinkRouterLink(quiz)">
+            <i [ngClass]="getIconClass(quiz)"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <h3 i18n>Copyright &copy; 2023
+      <a target="_blank" href="https://www.codelab.fun">codelab.fun</a>
+    </h3>
+  </footer>
+</div>
